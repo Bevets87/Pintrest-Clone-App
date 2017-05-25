@@ -8,6 +8,11 @@ import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../../webpack.config.dev'
 
+import session from 'express-session'
+
+import passport from 'passport'
+import passportRoutes from './routes/passport'
+
 let app = express()
 
 const compiler = webpack(webpackConfig)
@@ -21,8 +26,22 @@ app.use(webpackMiddleware(compiler, {
 app.use(webpackHotMiddleware(compiler))
 
 app.use(express.static(path.join(__dirname, '../client' )))
-
 app.use(bodyParser.json())
+
+app.use(session({
+  secret: 'secretString',
+  resave: true,
+  secure: false,
+  saveUninitialized: true
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.serializeUser(function(user, done) { done(null, user) })
+passport.deserializeUser(function(user, done) { done(null, user) })
+
+app.use('/', passportRoutes)
 
 app.get('*', (req,res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'))

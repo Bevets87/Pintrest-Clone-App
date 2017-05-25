@@ -26,7 +26,21 @@ module: {
       },
       {
         test: /\.s?css$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        loaders: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'compressed',
+              includePaths: ['./node_modules']
+            }
+          }
+        ]
       },
       {
         test: /\.png$/,

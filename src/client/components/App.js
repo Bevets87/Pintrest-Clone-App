@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 
-import './App.scss'
+import { BrowserRouter, Route } from 'react-router-dom'
+
+import Home from './Home'
+import AuthHome from './AuthHome'
 
 class App extends Component {
   constructor (props) {
@@ -8,9 +11,12 @@ class App extends Component {
   }
   render () {
     return (
-      <div className='app-container'>
-        <h1>React Starter!</h1>
-      </div>
+      <BrowserRouter>
+        <div className='app-container'>
+          <Route exact path='/' component={Home} />
+          <Route path='/home' component={AuthHome} />
+        </div>
+      </BrowserRouter>
     )
   }
 }

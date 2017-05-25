@@ -22,12 +22,20 @@
     "bootstrap": "^3.3.7",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
+    "express-session": "^1.15.3",
+    "grommet": "^1.4.0",
+    "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "mongoose": "^4.9.6",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.1"
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",
