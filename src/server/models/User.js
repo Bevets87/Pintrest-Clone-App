@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema({
   displayName: String,
-  username: String
+  username: String,
+  displayPhoto: String,
 })
 
 const User = mongoose.model('user', userSchema)

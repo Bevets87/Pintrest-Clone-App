@@ -5,8 +5,35 @@
 
 a {
   text-decoration: none;
-  color: inherit;
+
   &:hover {
     text-decoration: none;
   }
+}
+
+
+.navbar-title {
+  font-size: 30px;
+  &:hover {
+    text-decoration: none;
+  }
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.navbar-display-name {
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.add-photo-button {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.delete-photo-button {
+  margin-top: 10px;
 }

@@ -22,11 +22,12 @@ passport.use(new TwitterStrategy({
     callbackURL: 'http://localhost:3000/auth/twitter/callback'
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({twitterId: profile.id }, function (err, user) {
+    User.findOne({username: profile.username }, function (err, user) {
       if (!user) {
         user = new User({
           displayName: profile.displayName,
-          username: profile.username
+          username: profile.username,
+          displayPhoto: profile.photos[0].value
         })
         user.save((err, user) => {
           if (err) return console.error(err)
@@ -41,13 +42,17 @@ passport.use(new TwitterStrategy({
 
 router.get('/auth/twitter', passport.authenticate('twitter'))
 router.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }), (req, res) => {
-  res.redirect('/home')
+  res.redirect('/authorize')
 })
 router.post('/auth/verify', (req, res) => {
   if (req.isAuthenticated) {
-    res.status(200).json({
-      user: req.user,
-      token: createToken(req.user.username)
+    User.findOne({username: req.user.username},(err, user) => {
+      if (err) return console.error(err)
+      console.log(user)
+      res.status(200).json({
+        user: user,
+        token: createToken(user.username)
+      })
     })
   } else {
     res.json({
@@ -55,8 +60,5 @@ router.post('/auth/verify', (req, res) => {
     })
   }
 })
-
-
-
 
 export default router

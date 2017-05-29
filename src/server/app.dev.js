@@ -11,7 +11,9 @@ import webpackConfig from '../../webpack.config.dev'
 import session from 'express-session'
 
 import passport from 'passport'
+
 import passportRoutes from './routes/passport'
+import photoRoutes from './routes/photo'
 
 let app = express()
 
@@ -42,12 +44,13 @@ passport.serializeUser(function(user, done) { done(null, user) })
 passport.deserializeUser(function(user, done) { done(null, user) })
 
 app.use('/', passportRoutes)
+app.use('/photos', photoRoutes)
 
 app.get('*', (req,res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'))
 })
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/ReactStarterApp');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/PinterestCloneApp');
 
 mongoose.connection.once('open',function(){
   console.log('Connection has been made!')
