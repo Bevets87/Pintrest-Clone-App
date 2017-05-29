@@ -12,6 +12,7 @@ import TextInput from 'grommet/components/TextInput'
 import Button from 'grommet/components/Button'
 import AddIcon from 'grommet/components/icons/base/Add'
 import Animate from 'grommet/components/Animate'
+import Notification from 'grommet/components/Notification'
 
 class AddPhoto extends Component {
   constructor (props) {
@@ -43,7 +44,7 @@ class AddPhoto extends Component {
     const { photo_url, photo_text } = this.state
     const { user, dispatch } = this.props
     let token = localStorage.getItem('token')
-    createPhoto({photo_url: photo_url, photo_text: photo_text, owner_id: user._id, token: token})
+    createPhoto({photo_url: photo_url, photo_text: photo_text, owner: user, token: token})
     .then(() => {
       dispatch(getPhotos())
       this.props.history.push('/my-photos')
@@ -61,7 +62,7 @@ class AddPhoto extends Component {
         <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
           <Box full={true}>
             <Box flex={true}>
-              <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'50px auto','paddingBottom': '50px'}}>
+              <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'15vh auto','paddingBottom': '50px'}}>
                 <Title style={{'fontSize': '55px','fontWeight':'bold', 'color':'rgb(134,92,214)','margin':'20px auto'}} >
                   Add Photo
                 </Title>
@@ -80,7 +81,7 @@ class AddPhoto extends Component {
       )
     } else {
       return (
-        <h1 style={{'textAlign':'center', 'marginTop':'50px'}}>This is a protected page!</h1>
+        <Notification state='Unauthorized' message='Login to access this page' size='large' status='warning' />
       )
     }
   }

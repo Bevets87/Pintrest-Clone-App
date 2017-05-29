@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const photoSchema = new Schema({
   url: String,
   text: String,
-  likes: Number,
+  likes: Array,
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'

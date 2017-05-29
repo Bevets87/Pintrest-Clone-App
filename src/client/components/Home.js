@@ -27,14 +27,14 @@ class Home extends Component {
                 <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='small' wrap={true} key={photo._id} colorIndex='light-2' >
                   <Box justify='start' direction='row'>
                     <Image size='thumb' src={photo.owner.displayPhoto} />
-                    <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='medium'>{photo.owner.username}</Paragraph>
+                    <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='large'>{photo.owner.username}</Paragraph>
                   </Box>
                   <Box>
                     <Image src={photo.url} full={true} fit='contain' />
                   </Box>
                   <Box>
                     <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
-                    <Button className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.toString()} primary={false} secondary={false} accent={false} />
+                    <Button className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} primary={false} secondary={false} accent={false} />
                   </Box>
                 </Box>
               )

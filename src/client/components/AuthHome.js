@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
+import { updatePhoto, getPhotos, setPhotoErrors } from '../actions/photoActions'
 
 import Box from 'grommet/components/Box'
 import Columns from 'grommet/components/Columns'
@@ -10,6 +11,7 @@ import Paragraph from 'grommet/components/Paragraph'
 import Button from 'grommet/components/Button'
 import FavoriteIcon from 'grommet/components/icons/base/Favorite'
 import Animate from 'grommet/components/Animate'
+import Notification from 'grommet/components/Notification'
 
 class AuthHome extends Component {
   constructor (props) {
@@ -18,7 +20,17 @@ class AuthHome extends Component {
   }
   handleLikePhoto (event) {
     event.preventDefault()
-    alert('clicked')
+    const { user, dispatch } = this.props
+    let photo_id = event.target.value
+    let token = localStorage.getItem('token')
+    updatePhoto({user: user, photo_id: photo_id, token: token})
+    .then(() => {
+      dispatch(getPhotos())
+    })
+    .catch(error => {
+      let photoErrors = error.response.data.errors
+      dispatch(setPhotoErrors(photoErrors))
+    })
   }
   render () {
     const { isAuthenticated, photos } = this.props
@@ -33,14 +45,14 @@ class AuthHome extends Component {
                   <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='small' wrap={true} key={photo._id} colorIndex='light-2' >
                     <Box justify='start' direction='row'>
                       <Image size='thumb' src={photo.owner.displayPhoto} />
-                      <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='medium'>{photo.owner.username}</Paragraph>
+                      <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='large'>{photo.owner.username}</Paragraph>
                     </Box>
                     <Box>
                       <Image src={photo.url} full={true} fit='contain' />
                     </Box>
                     <Box>
                       <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
-                      <Button className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.toString()} onClick={this.handleLikePhoto} primary={false} secondary={false} accent={false} />
+                      <Button value={photo._id} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} onClick={this.handleLikePhoto} />
                     </Box>
                   </Box>
                 )
@@ -52,7 +64,7 @@ class AuthHome extends Component {
       )
     } else {
       return (
-        <h1 style={{'textAlign':'center', 'marginTop':'50px'}}>This is a protected page!</h1>
+        <Notification state='Unauthorized' message='Login to access this page' size='large' status='warning' />
       )
     }
   }
@@ -60,15 +72,18 @@ class AuthHome extends Component {
 
 AuthHome.propTypes = {
   isAuthenticated: PropTypes.bool,
-  photos: PropTypes.array
+  photos: PropTypes.array,
+  user: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
-  const { isAuthenticated } = state.userReducer
+  const { isAuthenticated, user } = state.userReducer
   const { photos } = state.photoReducer
   return {
     isAuthenticated,
-    photos
+    photos,
+    user
   }
 }
 
