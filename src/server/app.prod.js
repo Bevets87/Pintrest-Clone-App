@@ -11,9 +11,6 @@ import passport from 'passport'
 import passportRoutes from './routes/passport'
 import photoRoutes from './routes/photo'
 
-import config from '../../config'
-const { SESSION_SECRET } = config
-
 let app = express()
 
 app.use(compression())
@@ -22,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../../dist' )))
 app.use(bodyParser.json())
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || SESSION_SECRET,
+  secret: process.env.SESSION_SECRET
   resave: true,
   secure: false,
   saveUninitialized: true
