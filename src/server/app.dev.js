@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, '../client' )))
 app.use(bodyParser.json())
 
 app.use(session({
-  secret: SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || SESSION_SECRET,
   resave: true,
   secure: false,
   saveUninitialized: true

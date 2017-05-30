@@ -11,15 +11,15 @@ import config from '../../../config'
 const { TWITTER_CONSUMER_SECRET, TWITTER_CONSUMER_KEY, JWT_SECRET, TWITTER_CALLBACK_URL } = config
 
 const createToken = function(username) {
-  return jwt.sign({user: username}, JWT_SECRET , {expiresIn: 60 * 60})
+  return jwt.sign({user: username}, process.env.JWT_SECRET || JWT_SECRET , {expiresIn: 60 * 60})
 }
 
 let router = express.Router()
 
 passport.use(new TwitterStrategy({
-    consumerKey: TWITTER_CONSUMER_KEY,
-    consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: TWITTER_CALLBACK_URL
+    consumerKey: process.env.TWITTER_CONSUMER_KEY || TWITTER_CONSUMER_KEY,
+    consumerSecret: process.env.TWITTER_CONSUMER_SECRET || TWITTER_CONSUMER_SECRET,
+    callbackURL: process.env.TWITTER_CALLBACK_URL || TWITTER_CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({username: profile.username }, function (err, user) {

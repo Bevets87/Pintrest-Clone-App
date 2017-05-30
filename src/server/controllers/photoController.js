@@ -15,7 +15,7 @@ export const handle_get_photos = (req, res) => {
 export const handle_create_photo = (req, res) => {
   const { photo_url, photo_text, owner, token } = req.body
   console.log(req.body)
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET || JWT_SECRET, (err, decoded) => {
     if (!err) {
       let newPhoto = new Photo({
         url: photo_url,
@@ -37,7 +37,7 @@ export const handle_create_photo = (req, res) => {
 
 export const handle_update_photo = (req, res) => {
   const { user, photo_id, token } = req.body
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET || JWT_SECRET, (err, decoded) => {
     if (!err) {
     Photo.findOne({_id: photo_id}, (err, photo) => {
       if (err) return console.error(err)
@@ -63,7 +63,7 @@ export const handle_update_photo = (req, res) => {
 export const handle_delete_photo = (req, res) => {
   const { photo_id, token } = req.body
   console.log(req.body)
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET || JWT_SECRET, (err, decoded) => {
     if (!err) {
       Photo.findOneAndRemove({_id: photo_id}, (err, photo) => {
         if (err) return console.error(err)
