@@ -57,9 +57,9 @@ class MyPhotos extends Component {
                     </Box>
                     <Box>
                       <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
-                      <Button className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} />
+                      <Button fill={true} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} />
                     </Box>
-                    <Button primary={true} value={photo._id} className='delete-photo-button' icon={<CloseIcon/>} label='delete' onClick={this.handleDeletePhoto}/>
+                    <Button primary={true} fill={true} value={photo._id} className='delete-photo-button' icon={<CloseIcon/>} label='delete' onClick={this.handleDeletePhoto}/>
                   </Box>
                 )
               })}

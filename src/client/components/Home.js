@@ -21,7 +21,7 @@ class Home extends Component {
       <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
         <Box flex={true}>
         {photos.length > 0 &&
-          <Columns style={{'width':'95%', 'margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='center' masonry={true} maxCount={3} size='medium'  >
+          <Columns style={{'width':'95%','margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='center' masonry={true} maxCount={3} size='medium'  >
             {photos.map(photo => {
               return (
                 <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='medium' wrap={true} key={photo._id} colorIndex='light-2' >
@@ -34,7 +34,7 @@ class Home extends Component {
                   </Box>
                   <Box>
                     <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
-                    <Button className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} primary={false} secondary={false} accent={false} />
+                    <Button fill={true} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} primary={false} secondary={false} accent={false} />
                   </Box>
                 </Box>
               )

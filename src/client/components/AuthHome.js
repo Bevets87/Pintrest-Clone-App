@@ -55,7 +55,7 @@ class AuthHome extends Component {
                     </Box>
                     <Box>
                       <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
-                      <Button value={photo._id} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} onClick={this.handleLikePhoto} />
+                      <Button fill={true} value={photo._id} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} onClick={this.handleLikePhoto} />
                     </Box>
                   </Box>
                 )
