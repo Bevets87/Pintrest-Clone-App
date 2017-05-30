@@ -19,7 +19,7 @@ let router = express.Router()
 passport.use(new TwitterStrategy({
     consumerKey: TWITTER_CONSUMER_KEY,
     consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: 'http://localhost:3000/auth/twitter/callback'
+    callbackURL: 'https://fcc-pinterest-application.herokuapp.com/auth/twitter/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({username: profile.username }, function (err, user) {
