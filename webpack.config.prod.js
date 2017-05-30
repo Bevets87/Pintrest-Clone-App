@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         test: /\.jpg$/,
-        loader: 'url-loader'
+        loader: 'file-loader'
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,

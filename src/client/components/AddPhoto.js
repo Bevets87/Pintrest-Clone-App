@@ -59,7 +59,7 @@ class AddPhoto extends Component {
       return (
         <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
           <Box flex={true}>
-            <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'15vh auto','paddingBottom': '50px'}}>
+            <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'10vh auto','paddingBottom': '50px'}}>
                 <Heading style={{'color':'rgb(134,92,214)'}} strong={true} truncate={true} align='center' margin='medium'>ADD PHOTO</Heading>
                 <FormField style={{'width': '95%', 'margin':'10px auto'}} label='Link to the photo'>
                   <TextInput id='photo-url' onDOMChange={this.handleOnChange}/>

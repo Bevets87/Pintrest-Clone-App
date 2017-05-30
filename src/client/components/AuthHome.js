@@ -6,7 +6,6 @@ import { updatePhoto, getPhotos, setPhotoErrors } from '../actions/photoActions'
 
 import Box from 'grommet/components/Box'
 import Columns from 'grommet/components/Columns'
-import Image from 'grommet/components/Image'
 import Paragraph from 'grommet/components/Paragraph'
 import Button from 'grommet/components/Button'
 import FavoriteIcon from 'grommet/components/icons/base/Favorite'
@@ -46,12 +45,12 @@ class AuthHome extends Component {
               {photos.map(photo => {
                 return (
                   <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='medium' wrap={true} key={photo._id} colorIndex='light-2' >
-                    <Box justify='start' direction='row'>
-                      <Image size='thumb' src={photo.owner.displayPhoto} />
+                    <Box justify='start' direction='row' responsive={false}>
+                      <img src={photo.owner.displayPhoto} />
                       <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='large'>{photo.owner.username}</Paragraph>
                     </Box>
                     <Box>
-                      <Image src={photo.url} full={true} fit='contain' />
+                      <img src={photo.url} />
                     </Box>
                     <Box>
                       <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>

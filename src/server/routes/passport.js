@@ -8,7 +8,7 @@ import TwitterStrategy from 'passport-twitter'
 import User from '../models/User'
 
 import config from '../config'
-const { TWITTER_CONSUMER_SECRET, TWITTER_CONSUMER_KEY, JWT_SECRET } = config
+const { TWITTER_CONSUMER_SECRET, TWITTER_CONSUMER_KEY, JWT_SECRET, TWITTER_CALLBACK_URL } = config
 
 const createToken = function(username) {
   return jwt.sign({user: username}, JWT_SECRET , {expiresIn: 60 * 60})
@@ -19,7 +19,7 @@ let router = express.Router()
 passport.use(new TwitterStrategy({
     consumerKey: TWITTER_CONSUMER_KEY,
     consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: 'https://fcc-pinterest-application.herokuapp.com/auth/twitter/callback'
+    callbackURL: TWITTER_CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({username: profile.username }, function (err, user) {
@@ -48,7 +48,6 @@ router.post('/auth/verify', (req, res) => {
   if (req.isAuthenticated) {
     User.findOne({username: req.user.username},(err, user) => {
       if (err) return console.error(err)
-      console.log(user)
       res.status(200).json({
         user: user,
         token: createToken(user.username)
