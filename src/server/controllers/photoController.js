@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import Photo from '../models/Photo'
-import config from '../config'
+import config from '../../../config'
 const { JWT_SECRET } = config
 
 export const handle_get_photos = (req, res) => {
