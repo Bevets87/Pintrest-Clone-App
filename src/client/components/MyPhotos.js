@@ -19,12 +19,16 @@ class MyPhotos extends Component {
     super (props)
     this.handleDeletePhoto = this.handleDeletePhoto.bind(this)
   }
+
   handleDeletePhoto (event) {
     event.preventDefault()
+    if (!event.target.value) {
+      event.target = event.target.ownerDocument.activeElement
+    }
     const { dispatch } = this.props
-    let token = localStorage.getItem('token')
-    let photo_id = event.target.value
-    deletePhoto({photo_id: photo_id, token: token})
+    var token = localStorage.getItem('token')
+    var photo_id = event.target.value
+    deletePhoto({photo_id: photo_id , token: token})
     .then(() => {
       dispatch(getPhotos())
     })
@@ -34,16 +38,16 @@ class MyPhotos extends Component {
     })
   }
   render () {
-    const { isAuthenticated, photos, user } = this.props
+    const { isAuthenticated, myPhotos } = this.props
     if (isAuthenticated) {
       return (
         <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
           <Box flex={true}>
-          {photos.length > 0 &&
-              <Columns style={{'width':'95%', 'margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='between' masonry={true} maxCount={3} size='medium'  >
-              {photos.filter(photo => photo.owner._id == user._id).map(photo => {
+          {myPhotos.length > 0 &&
+              <Columns style={{'width':'95%', 'margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='center' masonry={true} maxCount={3} size='medium'  >
+              {myPhotos.map(photo => {
                 return (
-                  <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='small' wrap={true} key={photo._id} colorIndex='light-2' >
+                  <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='medium' wrap={true} key={photo._id} colorIndex='light-2' >
                     <Box justify='start' direction='row'>
                       <Image size='thumb' src={photo.owner.displayPhoto} />
                       <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='large'>{photo.owner.username}</Paragraph>
@@ -55,7 +59,7 @@ class MyPhotos extends Component {
                       <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
                       <Button className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} />
                     </Box>
-                    <Button value={photo._id} className='delete-photo-button' icon={<CloseIcon/>} label='delete' onClick={this.handleDeletePhoto}/>
+                    <Button primary={true} value={photo._id} className='delete-photo-button' icon={<CloseIcon/>} label='delete' onClick={this.handleDeletePhoto}/>
                   </Box>
                 )
               })}
@@ -75,16 +79,16 @@ class MyPhotos extends Component {
 MyPhotos.propTypes = {
   isAuthenticated: PropTypes.bool,
   dispatch: PropTypes.func,
-  photos: PropTypes.array,
-  user: PropTypes.object
+  myPhotos: PropTypes.array
 }
 
 const mapStateToProps = (state) => {
   const { isAuthenticated, user } = state.userReducer
   const { photos } = state.photoReducer
+  const myPhotos = photos.filter(photo => photo.owner._id == user._id)
   return {
     isAuthenticated,
-    photos,
+    myPhotos,
     user
   }
 }

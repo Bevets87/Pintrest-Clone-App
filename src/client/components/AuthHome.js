@@ -20,6 +20,9 @@ class AuthHome extends Component {
   }
   handleLikePhoto (event) {
     event.preventDefault()
+    if (!event.target.value) {
+      event.target = event.target.ownerDocument.activeElement
+    }
     const { user, dispatch } = this.props
     let photo_id = event.target.value
     let token = localStorage.getItem('token')
@@ -39,10 +42,10 @@ class AuthHome extends Component {
         <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
           <Box flex={true}>
           {photos.length > 0 &&
-              <Columns style={{'width':'95%', 'margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='between' masonry={true} maxCount={3} size='medium'  >
+              <Columns style={{'width':'95%', 'margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='center' masonry={true} maxCount={3} size='medium'  >
               {photos.map(photo => {
                 return (
-                  <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='small' wrap={true} key={photo._id} colorIndex='light-2' >
+                  <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='medium' wrap={true} key={photo._id} colorIndex='light-2' >
                     <Box justify='start' direction='row'>
                       <Image size='thumb' src={photo.owner.displayPhoto} />
                       <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='large'>{photo.owner.username}</Paragraph>

@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPhotos, createPhoto, setPhotoErrors } from '../actions/photoActions'
 
-import App from 'grommet/components/App'
 import Box from 'grommet/components/Box'
-import Title from 'grommet/components/Title'
+import Heading from 'grommet/components/Heading'
 import FormField from 'grommet/components/FormField'
 import TextInput from 'grommet/components/TextInput'
 import Button from 'grommet/components/Button'
@@ -58,26 +57,20 @@ class AddPhoto extends Component {
     const { isAuthenticated } = this.props
     if (isAuthenticated) {
       return (
-        <App centered={false}>
         <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
-          <Box full={true}>
-            <Box flex={true}>
-              <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'15vh auto','paddingBottom': '50px'}}>
-                <Title style={{'fontSize': '55px','fontWeight':'bold', 'color':'rgb(134,92,214)','margin':'20px auto'}} >
-                  Add Photo
-                </Title>
+          <Box flex={true}>
+            <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'15vh auto','paddingBottom': '50px'}}>
+                <Heading style={{'color':'rgb(134,92,214)'}} strong={true} truncate={true} align='center' margin='medium'>ADD PHOTO</Heading>
                 <FormField style={{'width': '95%', 'margin':'10px auto'}} label='Link to the photo'>
                   <TextInput id='photo-url' onDOMChange={this.handleOnChange}/>
                 </FormField>
                 <FormField style={{'width': '95%', 'margin':'10px auto'}} label='Text of the photo'>
                   <TextInput id='photo-text' onDOMChange={this.handleOnChange} />
                 </FormField>
-                <Button className='add-photo-button' icon={<AddIcon/>} label='Add' onClick={this.handleSubmitPhoto} primary={false} secondary={false} accent={false} />
-              </Box>
+                <Button className='add-photo-button' icon={<AddIcon/>} label='Add' onClick={this.handleSubmitPhoto} />
             </Box>
           </Box>
         </Animate>
-        </App>
       )
     } else {
       return (
