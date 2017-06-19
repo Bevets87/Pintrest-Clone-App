@@ -15,7 +15,7 @@ import passport from 'passport'
 import passportRoutes from './routes/passport'
 import photoRoutes from './routes/photo'
 
-import config from '../../config'
+import config from 'config'
 const { SESSION_SECRET } = config
 
 let app = express()

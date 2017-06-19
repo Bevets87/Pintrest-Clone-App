@@ -7,7 +7,7 @@ import TwitterStrategy from 'passport-twitter'
 
 import User from '../models/User'
 
-import config from '../../../config'
+import config from '../config'
 const { TWITTER_CONSUMER_SECRET, TWITTER_CONSUMER_KEY, JWT_SECRET, TWITTER_CALLBACK_URL } = config
 
 const createToken = function(username) {
