@@ -15,9 +15,6 @@ import passport from 'passport'
 import passportRoutes from './routes/passport'
 import photoRoutes from './routes/photo'
 
-import config from 'config'
-const { SESSION_SECRET } = config
-
 let app = express()
 
 const compiler = webpack(webpackConfig)

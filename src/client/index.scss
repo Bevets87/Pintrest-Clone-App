@@ -37,3 +37,34 @@ a {
 .delete-photo-button {
   margin-top: 5px;
 }
+
+
+/* ---- .grid-item ---- */
+
+.grid-item {
+  width: 33.333%;
+  @media (max-width: 1000px) {
+    width: 50%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.grid-item {
+  float: left;
+  border: 2px solid gray;
+  border-radius: 10px;
+
+}
+
+.grid-item img {
+  display: block;
+  max-width: 100%;
+}
+
+.grid-item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

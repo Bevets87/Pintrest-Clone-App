@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
+import Masonry from 'react-masonry-component'
+
 import Box from 'grommet/components/Box'
-import Columns from 'grommet/components/Columns'
 import Paragraph from 'grommet/components/Paragraph'
 import Button from 'grommet/components/Button'
 import FavoriteIcon from 'grommet/components/icons/base/Favorite'
@@ -17,30 +18,43 @@ class Home extends Component {
   render () {
     const { photos } = this.props
     return (
-      <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
-        <Box flex={true}>
+      <Animate enter={{
+        'animation':'fade',
+        'duration': 1000,
+        'delay': 0}} keep={true}>
         {photos.length > 0 &&
-          <Columns style={{'width':'95%','margin':'25px auto', 'background':'rgba(100,100,100,0.1)','border':'1px solid rgba(0,0,0,0.4)','borderRadius':'10px'}}  justify='center' masonry={true} maxCount={3} size='medium'  >
+          <Masonry >
             {photos.map(photo => {
               return (
-                <Box style={{'border':'2px solid rgb(134,92,214)','borderRadius':'10px'}} margin='medium' wrap={true} key={photo._id} colorIndex='light-2' >
+                <div className='grid-item' key={photo._id}>
                   <Box justify='start' direction='row' responsive={false}>
                     <img src={photo.owner.displayPhoto} />
-                    <Paragraph style={{'fontWeight':'bold','margin':'10px auto', 'padding':'0'}} size='large'>{photo.owner.username}</Paragraph>
+                    <Paragraph style={{
+                      'width':'100%',
+                      'fontWeight':'bold',
+                      'margin':'10px auto',
+                      'padding':'0'}}
+                      align='center' size='large'>{photo.owner.username}</Paragraph>
                   </Box>
                   <Box>
                     <img src={photo.url} />
                   </Box>
                   <Box>
-                    <Paragraph style={{'padding': '0', 'margin':'0 auto'}}size='large'>{photo.text}</Paragraph>
-                    <Button fill={true} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} primary={false} secondary={false} accent={false} />
+                    <Paragraph style={{
+                      'width':'100%',
+                      'padding': '0',
+                      'margin':'0 auto',
+                      'overflowX':'scroll'
+                    }}
+                    align='center' size='large'>{photo.text}</Paragraph>
+                    <Button fill={true} value={photo._id} className='like-photo-button' icon={<FavoriteIcon/>} label={photo.likes.length.toString()} onClick={this.handleLikePhoto} />
                   </Box>
-                </Box>
+                </div>
               )
             })}
-          </Columns>
+          </Masonry>
           }
-        </Box>
+
       </Animate>
     )
   }

@@ -39,9 +39,9 @@ class AddPhoto extends Component {
     }
   }
   handleSubmitPhoto (event) {
-    event.preventDefault()
     const { photo_url, photo_text } = this.state
     const { user, dispatch } = this.props
+    event.preventDefault()
     let token = localStorage.getItem('token')
     createPhoto({photo_url: photo_url, photo_text: photo_text, owner: user, token: token})
     .then(() => {
@@ -57,7 +57,10 @@ class AddPhoto extends Component {
     const { isAuthenticated } = this.props
     if (isAuthenticated) {
       return (
-        <Animate enter={{'animation': 'slide-right', 'duration': 300, 'delay': 0}} keep={true}>
+        <Animate enter={{
+          'animation': 'slide-up',
+          'duration': 300,
+          'delay': 0}} keep={true}>
           <Box flex={true}>
             <Box separator='all' size='large' colorIndex='light-2' style={{'margin':'10vh auto','paddingBottom': '50px'}}>
                 <Heading style={{'color':'rgb(134,92,214)'}} strong={true} truncate={true} align='center' margin='medium'>ADD PHOTO</Heading>
